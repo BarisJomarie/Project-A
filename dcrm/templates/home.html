@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+
+
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-secondary alert-dismissible fade show w-5" role="alert" style="text-align: center;">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+{% endif %}    
+{% if user.is_authenticated %}
+
+<table class="table">
+    <thead class="table-secondary">
+        <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th>PHONE</th>
+        <th>ADDRESS</th>
+        <th>CITY</th>
+        <th>STATE</th>
+        <th>ZIPCODE</th>
+        <th>CREATED AT</th>
+        <th></th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-light">
+
+        {% if records %}
+            {% for record in records %}
+                <tr>
+                    <th>{{ record.id }}</th>
+                    <td>{{ record.first_name }} {{ record.last_name }}</td>
+                    <td>{{ record.email }}</td>
+                    <td>{{ record.phone }}</td>
+                    <td>{{ record.address }}</td>
+                    <td>{{ record.city}}</td>
+                    <td>{{ record.state }}</td>
+                    <td>{{ record.zipcode }}</td>
+                    <td>{{ record.created_at }}</td>
+                    <td>
+                        <a href="{% url 'record' record.id %}">
+                        <button class="btn btn-secondary">Edit Record</button>
+                        </a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+    </tbody>
+</table>
+
+{% else %}
+
+
+
+<div class="col-md-6 offset-md-3">
+    <h1 style="text-align: center;">Log In</h1>
+    <div class="mb-3">
+        <form action="{% url 'home' %}" method="POST">
+            {% csrf_token %}
+        <input class="form-control" type="text" name="username" placeholder="Username"> <br>
+        <input class="form-control" type="password" name="password" placeholder="Password"> <br>
+        <button class="btn btn-secondary" type="submit" style="justify-content: center;">Log In</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% endif %}
+</div>
+
+<!-- Button trigger modal -->
+
+
+{% endblock %}

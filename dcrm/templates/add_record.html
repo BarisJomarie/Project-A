@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container col-md-6">
+<div class="row">
+
+<h1 style="text-align: center;">THIS IS ADD RECORD PAGE</h1>
+
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+<button type="submit" class="btn btn-secondary">Register</button>
+</form>
+<a href="{% url 'home' %}"><button class="btn btn-dark">Back</button></a>
+
+</div>
+</div>
+
+{% endblock %}
